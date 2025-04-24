@@ -1,11 +1,7 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const AdminDashboard = ({ user }) => {
-    const navigate = useNavigate();
-    const logoutUser = () => {
-        localStorage.removeItem('user');
-        navigate('/login');
-    }
+const AdminDashboard = ({ user, logoutUser }) => {
+    
     return(
         <div className="container">
             <div className="row mt-4">

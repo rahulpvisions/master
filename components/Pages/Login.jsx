@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import LoginContext from "../../LoginContext";
 
 const Login = () => {
     const navigate = useNavigate();
+    const {setUser} = useContext(LoginContext);
     const [data, setData] = useState({
         email: "",
         password: ""
@@ -29,6 +31,7 @@ const Login = () => {
                 if(response.status === 200){
                     setLoading(false);
                     localStorage.setItem("user", JSON.stringify(response.data.user));
+                    setUser(response.data.user);
                     navigate("/dashboard")
                 }
             })

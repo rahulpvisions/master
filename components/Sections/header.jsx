@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from "react";
+import React, {useContext} from "react";
 import Logo from '../../assets/images/logopal.png'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
@@ -6,15 +6,9 @@ import '../../assets/css/style.css';
 import { Link } from "react-router-dom";
 import CartContext from "../../CartContext";
 
-const Header = React.memo(() =>{
-
+const Header = React.memo(( { user } ) =>{
+    console.log("User:", user);
     const {cart} = useContext(CartContext);
-    const [user, setUser] = useState(null);
-    
-    useEffect(()=>{
-        setUser(JSON.parse(localStorage.getItem("user")));
-    },[]);
-
     return (
         <>
             <div className="container">
