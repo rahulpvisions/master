@@ -49,7 +49,12 @@ const Products = () => {
             totalCount: totalCount,
             subTotal: subTotal
         });
-    
+        
+        localStorage.setItem("cart", JSON.stringify({
+            products: updatedProducts,
+            totalCount: totalCount,
+            subTotal: subTotal
+        }));
         scrollToTop();
     };    
 

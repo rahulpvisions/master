@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import Logo from '../../assets/images/logopal.png'
+import Logo from '../../assets/images/logopal.svg'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import '../../assets/css/style.css';

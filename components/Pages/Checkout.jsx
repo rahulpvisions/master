@@ -2,17 +2,56 @@ import { useContext, useEffect, useState } from "react";
 import CartContext from "../../CartContext";
 import { Link } from "react-router-dom";
 import LoginContext from "../../LoginContext";
+import loadingSVG from "../../assets/images/loading.svg";
+
+import axios from "axios";
 
 const Checkout = () => {
 
-    const {cart} = useContext(CartContext);
+    const {cart, setCart} = useContext(CartContext);
     const [flatShipping] = useState(50);
     const {user} = useContext(LoginContext);
+    const [loading, setLoading] = useState(false);
+
+    const hanldeCheckout = async (e) => {
+        e.preventDefault();
+        setLoading(true)
+        try {
+            setLoading(true);
+            const orderData = {
+                cart: cart,
+                shipping: flatShipping,
+                total: parseFloat(cart.subTotal)+parseFloat(flatShipping),
+                user: user,
+                orderId: cart.orderId
+            }
+
+            console.log("OrderData", orderData);
+            
+            const response = await axios.post("http://localhost/wordpress-new/wp-json/custom/v1/create-payment-checkout", orderData);
+            console.log("Response", response);
+            setCart(prevCart => ({ ...prevCart, orderId: response.data.checkout_response.metadata.order_id }))
+            console.log("Current Order Id", response.data.checkout_response.metadata.order_id);
+            localStorage.setItem('currentOrderId',response.data.checkout_response.metadata.order_id);
+            window.location = response.data.checkout_response.url;
+        }catch(error){
+            console.log(error);
+        }finally{
+            setLoading(false);
+        }
+    }
 
     return (
+        
+        <>
+        {(loading) ? <div class="loader-container">
+                        <div class="loader"></div>
+                     </div> : ''
+        }
         <section className="h-100 h-custom" style={{backgroundColor: '#eee'}}>
             <div className="container py-5 h-100">
                 <div className="row d-flex justify-content-center align-items-center h-100">
+                
                     <div className="col">
                         <div className="card">
                             <div className="card-body p-4">
@@ -105,22 +144,22 @@ const Checkout = () => {
 
                                                 <div className="d-flex justify-content-between">
                                                     <p className="mb-2">Subtotal</p>
-                                                    <p className="mb-2">${cart.subTotal}</p>
+                                                    <p className="mb-2">${parseFloat(cart.subTotal).toFixed(2)}</p>
                                                 </div>
 
                                                 <div className="d-flex justify-content-between">
                                                     <p className="mb-2">Shipping</p>
-                                                    <p className="mb-2">${flatShipping}</p>
+                                                    <p className="mb-2">${parseFloat(flatShipping).toFixed(2)}</p>
                                                 </div>
 
                                                 <div className="d-flex justify-content-between mb-4">
                                                     <p className="mb-2">Total(Incl. taxes)</p>
-                                                    <p className="mb-2">${parseFloat(cart.subTotal)+parseFloat(flatShipping)}</p>
+                                                    <p className="mb-2">${(parseFloat(cart.subTotal) + parseFloat(flatShipping)).toFixed(2)}</p>
                                                 </div>
                                                 {(user) ? (
-                                                    <button type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-info btn-block btn-lg" disabled={!user}>
+                                                    <button type="button" onClick={hanldeCheckout} data-mdb-button-init data-mdb-ripple-init className="btn btn-info btn-block btn-lg">
                                                         <div className="d-flex justify-content-between">
-                                                            <span>${parseFloat(cart.subTotal)+parseFloat(flatShipping)}</span>
+                                                            <span>${(parseFloat(cart.subTotal) + parseFloat(flatShipping)).toFixed(2)}</span>
                                                             <span>Checkout <i className="fas fa-long-arrow-alt-right ms-2"></i></span>
                                                         </div>
                                                     </button>
@@ -137,6 +176,7 @@ const Checkout = () => {
                 </div>
             </div>
         </section>
+        </>
     )
 }
 

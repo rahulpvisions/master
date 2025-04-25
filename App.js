@@ -19,6 +19,8 @@ import Cart from './components/Pages/Cart';
 import MainLayout from './MainLayout';
 import Checkout from './components/Pages/Checkout';
 import LoginProvider from './LoginProvider';
+import OrderSuccess from './components/Pages/OrderSuccess';
+import CancelOrder from './components/Pages/CancelOrder';
 
 function App() {
   return (
@@ -59,6 +61,8 @@ function App() {
             <Route path="/products" element={<Products />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route path='/order-success' element={<OrderSuccess />} />
+            <Route path='/order-cancel' element={<CancelOrder />} />
           </Route>
         </Routes>
       </CartProvider>
