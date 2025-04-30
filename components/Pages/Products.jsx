@@ -66,19 +66,19 @@ const Products = () => {
       };
 
     return(
-        <div className="container mt-4">
+        <>
+        {(loading) ? <div class="loader-container">
+                        <div class="loader"></div>
+                     </div> : ''
+        }
+
+<div className="container mt-4">
             <div className="row">
                 <div className="text-center">
                     <h2>Products</h2>
                 </div>
             </div>
-            {loading && 
-            <div className="row">
-                <div className="alert alert-primary">
-                    Loading..
-                </div>
-            </div>
-            }
+            
             {!loading && (
             <div className="row">
                 {products.map((product, index) => (
@@ -87,6 +87,7 @@ const Products = () => {
             </div>
             )}
         </div>
+        </>
     )
 }
 

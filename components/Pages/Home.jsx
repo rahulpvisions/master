@@ -36,21 +36,27 @@ const Home = () => {
         response();
     },[]);
 
-    if(!loading){
-        return (
-            <>
-            <h4 className="text-center">Welcome to Homepage</h4>
-            {(!loading && (
-                <>
-                {banners && <Banners banners={banners} />}
-                {homepageContent && <WelcomeContent content={homepageContent} />}
-                <BlogPosts posts_per_page={3} pagination={false} />
-                {contactForm && <ContactForm content={contactForm} />}
-                </>
-            ))}
-            
+    
+    return (
+        <>
+        {(loading) ? <div class="loader-container">
+            <div class="loader"></div>
+        </div> : ''
+        }
+
+        <h4 className="text-center">Welcome to Homepage</h4>
+        {(!loading && (
+            <>npm s
+            {banners && <Banners banners={banners} />}
+            {homepageContent && <WelcomeContent content={homepageContent} />}
+            <div className="mt-4 mb-4">
+                <BlogPosts posts_per_page={3} pagination={false} homepage={true} />
+            </div>
+            {contactForm && <ContactForm content={contactForm} />}
             </>
-        )
-    }
+        ))}
+        
+        </>
+    )
 }
 export default Home;

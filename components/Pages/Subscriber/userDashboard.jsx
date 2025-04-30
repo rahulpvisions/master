@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const UserDashboard = ({ user }) => {
     const navigate = useNavigate();
@@ -16,6 +16,9 @@ const UserDashboard = ({ user }) => {
                 <div className="col-md-2">
                     <div className="list-group">
                         <button onClick={logoutUser} type="button" className="text-center list-group-item list-group-item-action">Logout</button>
+                    </div>
+                    <div className="list-group mt-2">
+                        <Link  to='/orders' className="text-center list-group-item list-group-item-action">Orders</Link>
                     </div>
                 </div>
             </div>

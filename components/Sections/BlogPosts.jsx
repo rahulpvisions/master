@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const BlogPosts = ({ posts_per_page, pagination }) => {
+const BlogPosts = ({ posts_per_page, pagination, homepage }) => {
   const [posts, setPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
@@ -35,13 +35,18 @@ const BlogPosts = ({ posts_per_page, pagination }) => {
       setCurrentPage(page);
     }
   };
-
-  if (loading) return <div className="text-center mt-5">Loading...</div>;
+  
   if (error) return <div className="text-center mt-5 text-danger">{error}</div>;
 
   return (
-    <div className="container mt-4">
-      <h1 className="text-center mb-4">Blog</h1>
+    <>
+    {(loading && !homepage) ? <div class="loader-container">
+        <div class="loader"></div>
+      </div> : ''
+    }
+
+<div className="container mt-4">
+      <h1 className={`${(!homepage) ? 'text-center': ''} mb-4 mt-4`}>Blog</h1>
       <div className="row">
         {posts.map((post, index) => (
           <div className="col-md-4 mb-4" key={index}>
@@ -98,6 +103,7 @@ const BlogPosts = ({ posts_per_page, pagination }) => {
         </div>
       )}
     </div>
+    </>
   );
 };
 

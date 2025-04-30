@@ -101,6 +101,9 @@ const Checkout = () => {
                                         <div className="card bg-primary text-white rounded-3">
                                             <div className="card-body">
                                                 <div className="d-flex justify-content-between align-items-center mb-4">
+                                                    <h5 className="mb-0">Order details</h5>
+                                                </div>
+                                                {/* <div className="d-flex justify-content-between align-items-center mb-4">
                                                     <h5 className="mb-0">Card details</h5>
                                                 </div>
                                                 <p className="small mb-2">Card type</p>
@@ -138,7 +141,7 @@ const Checkout = () => {
                                                         </div>
                                                     </div>
 
-                                                </form>
+                                                </form> */}
 
                                                 <hr className="my-4" />
 
@@ -157,10 +160,10 @@ const Checkout = () => {
                                                     <p className="mb-2">${(parseFloat(cart.subTotal) + parseFloat(flatShipping)).toFixed(2)}</p>
                                                 </div>
                                                 {(user) ? (
-                                                    <button type="button" onClick={hanldeCheckout} data-mdb-button-init data-mdb-ripple-init className="btn btn-info btn-block btn-lg">
+                                                    <button type="button" onClick={hanldeCheckout} data-mdb-button-init data-mdb-ripple-init className="btn btn-info btn-block btn-lg w-100">
                                                         <div className="d-flex justify-content-between">
                                                             <span>${(parseFloat(cart.subTotal) + parseFloat(flatShipping)).toFixed(2)}</span>
-                                                            <span>Checkout <i className="fas fa-long-arrow-alt-right ms-2"></i></span>
+                                                            <span> Place Order <i className="fas fa-long-arrow-alt-right ms-2"></i></span>
                                                         </div>
                                                     </button>
                                                 ) : (

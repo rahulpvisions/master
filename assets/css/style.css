@@ -24,17 +24,23 @@
     left: 0;
 }
 
-  .loader {
-    border: 6px solid #f3f3f3; /* Light gray */
-    border-top: 6px solid #3498db; /* Blue */
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
-    margin: auto;
-  }
+.loader {
+  border: 6px solid #f3f3f3; /* Light gray */
+  border-top: 6px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: auto;
+}
   
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.carousel-caption {
+    background-color: #ffffff70;
+    border: 1px solid #ffffff70;
+    border-radius: 10px;
+}
