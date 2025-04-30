@@ -46,7 +46,7 @@ const Home = () => {
 
         <h4 className="text-center">Welcome to Homepage</h4>
         {(!loading && (
-            <>npm s
+            <>
             {banners && <Banners banners={banners} />}
             {homepageContent && <WelcomeContent content={homepageContent} />}
             <div className="mt-4 mb-4">

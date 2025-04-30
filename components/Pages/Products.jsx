@@ -42,7 +42,7 @@ const Products = () => {
         // Calculate new total count
         const totalCount = updatedProducts.reduce((acc, item) => acc + item.quantity, 0);
 
-        const subTotal = updatedProducts.reduce((acc, item) => acc + parseFloat(item.price), 0);
+        const subTotal = updatedProducts.reduce((acc, item) => acc + (((item.on_sale) ? parseFloat(item.sale_price) : parseFloat(item.regular_price)) * item.quantity), 0);
     
         setCart({
             products: updatedProducts,

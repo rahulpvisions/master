@@ -1,8 +1,7 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import CartContext from "../../CartContext";
 import { Link } from "react-router-dom";
 import LoginContext from "../../LoginContext";
-import loadingSVG from "../../assets/images/loading.svg";
 
 import axios from "axios";
 
@@ -71,7 +70,7 @@ const Checkout = () => {
                                         </div>
                                         {
                                             cart.products.map((item, index) => (
-                                                <div className="card mb-3">
+                                                <div className="card mb-3" key={index}>
                                                     <div className="card-body">
                                                         <div className="d-flex justify-content-between">
                                                             <div className="d-flex flex-row align-items-center">
@@ -80,7 +79,7 @@ const Checkout = () => {
                                                                 </div>
                                                                 <div className="ms-3">
                                                                     <h5>{item.name}</h5>
-                                                                    {/* <p className="small mb-0">256GB, Navy Blue</p> */}
+                                                                    <p className="small mb-0"><span className="woocommerce-Price-currencySymbol">&#8377;</span>{ (item.on_sale) ? item.sale_price : item.regular_price }</p>
                                                                 </div>
                                                             </div>
                                                             <div className="d-flex flex-row align-items-center">
@@ -88,7 +87,10 @@ const Checkout = () => {
                                                                     <h5 className="fw-normal mb-0">{item.quantity}</h5>
                                                                 </div>
                                                                 <div style={{width: '80px'}}>
-                                                                    <h5 className="mb-0">${item.price}</h5>
+                                                                    <h5 className="mb-0">
+                                                                        <span className="woocommerce-Price-currencySymbol">&#8377;</span>
+                                                                        {(((item.on_sale) ? item.sale_price : item.regular_price) * item.quantity).toFixed(2)}
+                                                                    </h5>
                                                                 </div>
                                                             </div>
                                                         </div>

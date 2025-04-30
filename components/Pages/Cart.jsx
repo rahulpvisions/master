@@ -9,8 +9,14 @@ const Cart = () => {
         setCart((prevCart) => {
             const updatedProducts = prevCart.products.filter(item => item.id !== productId);
             const updatedTotalCount = updatedProducts.reduce((acc, item) => acc + item.quantity, 0);
-            const updatedSubTotal = updatedProducts.reduce((acc, item) => acc + (item.price * item.quantity), 0);
-    
+            const updatedSubTotal = updatedProducts.reduce((acc, item) => acc + (((item.sale_price) ? item.sale_price : item.regular_price) * item.quantity), 0);
+            
+            localStorage.setItem("cart", JSON.stringify({
+                products: updatedProducts,
+                totalCount: updatedTotalCount,
+                subTotal: updatedSubTotal
+            }));
+
             return {
                 products: updatedProducts,
                 totalCount: updatedTotalCount,
@@ -32,6 +38,7 @@ const Cart = () => {
                             <th>Image</th>
                             <th>Price</th>
                             <th>Qty.</th>
+                            <th>Sub Total</th>
                             <th>&nbsp;</th>
                         </tr>
                     </thead>
@@ -41,8 +48,14 @@ const Cart = () => {
                             <td>{index+1}</td>
                             <td>{item.name}</td>
                             <td><img src={item.image} alt={item.name} className="cartImage" /></td>
-                            <td>{item.price}</td>
+                            <td dangerouslySetInnerHTML={{ __html: (item.sale_price) ? item.display_sale_price : item.display_regular_price }}></td>
                             <td>{item.quantity}</td>
+                            <td>
+                                <>
+                                <span className="woocommerce-Price-currencySymbol">&#8377;</span>
+                                {((item.on_sale) ? item.sale_price : item.regular_price) * item.quantity}
+                                </>
+                            </td>
                             <td><button onClick={() => handleRemoveFromCart(item.id)} className="btn btn-danger btn-sm">Delete</button></td>
                         </tr>
                     ))}
