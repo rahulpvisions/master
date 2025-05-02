@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import LoginContext from "../../LoginContext";
+import { Link } from "react-router-dom";
 
 const Orders = () => {
     const {user} = useContext(LoginContext);
@@ -51,7 +52,7 @@ const Orders = () => {
                         <tbody className="">
                             {ordersData.map( (order, key) => (
                                 <tr key={key}>
-                                    <td scope="row">{order.order_id}</td>
+                                    <td>{order.order_id}</td>
                                     <td>{new Date(order.date_created).toLocaleDateString('en-US', {
                                         day: '2-digit',
                                         month: 'short',
@@ -59,7 +60,7 @@ const Orders = () => {
                                     })}</td>
                                     <td>{order.status}</td>
                                     <td dangerouslySetInnerHTML={{ __html: order.total }}></td>
-                                    <td>details</td>
+                                    <td><Link to={`/order-detail/${order.order_id}`}>details</Link></td>
                                 </tr>
                             ))}
                         </tbody>

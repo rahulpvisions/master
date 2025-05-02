@@ -22,6 +22,7 @@ import LoginProvider from './LoginProvider';
 import OrderSuccess from './components/Pages/OrderSuccess';
 import CancelOrder from './components/Pages/CancelOrder';
 import Orders from './components/Pages/Orders';
+import OrderDetail from './components/Pages/OrderDetail';
 
 function App() {
   return (
@@ -65,6 +66,7 @@ function App() {
             <Route path='/order-success' element={<OrderSuccess />} />
             <Route path='/order-cancel' element={<CancelOrder />} />
             <Route path='/orders' element={<Orders />} />
+            <Route path='/order-detail/:orderId' element={<OrderDetail />} />
           </Route>
         </Routes>
       </CartProvider>
