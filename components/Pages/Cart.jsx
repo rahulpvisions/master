@@ -25,6 +25,44 @@ const Cart = () => {
         });
     };
 
+
+
+    const incrementDecrement = (operator, productId) => {
+        
+        let updatedProducts;
+        let totalCount;
+        let subTotal;
+        switch (operator){
+            case 'plus':
+            default:
+                updatedProducts = cart.products.map((item) =>
+                    item.id === productId ? { ...item, quantity: item.quantity + 1 } : item
+                );
+                totalCount = updatedProducts.reduce((acc, item) => acc + item.quantity, 0);
+                subTotal = updatedProducts.reduce((acc, item) => acc + (((item.on_sale) ? parseFloat(item.sale_price) : parseFloat(item.regular_price)) * item.quantity), 0);
+                break;
+            case 'minus':
+                updatedProducts = cart.products.map((item) =>
+                    (item.id === productId && item.quantity > 1) ? { ...item, quantity: item.quantity - 1 } : item
+                );
+                totalCount = updatedProducts.reduce((acc, item) => acc + item.quantity, 0);
+                subTotal = updatedProducts.reduce((acc, item) => acc + (((item.on_sale) ? parseFloat(item.sale_price) : parseFloat(item.regular_price)) * item.quantity), 0);
+                break;
+        }
+    
+        setCart({
+            products: updatedProducts,
+            totalCount: totalCount,
+            subTotal: subTotal
+        });
+        
+        localStorage.setItem("cart", JSON.stringify({
+            products: updatedProducts,
+            totalCount: totalCount,
+            subTotal: subTotal
+        }));
+    }
+
     return (
         <div className="container">
             <div className="row">
@@ -49,7 +87,7 @@ const Cart = () => {
                             <td>{item.name}</td>
                             <td><img src={item.image} alt={item.name} className="cartImage" /></td>
                             <td dangerouslySetInnerHTML={{ __html: (item.sale_price) ? item.display_sale_price : item.display_regular_price }}></td>
-                            <td>{item.quantity}</td>
+                            <td><button onClick={() => incrementDecrement('minus',item.id)}>-</button><input type="number" readOnly value={item.quantity} /><button onClick={() => incrementDecrement('plus',item.id)}>+</button></td>
                             <td>
                                 <>
                                 <span className="woocommerce-Price-currencySymbol">&#8377;</span>

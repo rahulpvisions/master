@@ -15,7 +15,7 @@ const Banners = ( { banners } ) => {
         <div className="container">
             <div className="row">
                 <div className="col-md-12">
-                    <Carousel activeIndex={index} onSelect={handleSelect} data-bs-theme="dark">
+                    <Carousel axis="vertical" activeIndex={index} onSelect={handleSelect} data-bs-theme="dark">
                         {banners.map((image, index) => (
                         <Carousel.Item style={carouselItemStyle}>
                             <div className="banner" key={index}>

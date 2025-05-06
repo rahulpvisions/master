@@ -56,7 +56,7 @@ const Products = () => {
             subTotal: subTotal
         }));
         scrollToTop();
-    };    
+    };
 
     const scrollToTop = () => {
         window.scrollTo({

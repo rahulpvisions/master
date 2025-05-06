@@ -11,7 +11,7 @@ const Home = () => {
     const [contactForm, setContactForm] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    useEffect( () => {
+    useEffect(() => {
         setLoading(true);
         const response = async () => {
             try {
